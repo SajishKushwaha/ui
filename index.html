@@ -23,13 +23,14 @@ body {
         .budget-title {
             padding: 10px;
             background:white;
-            color: black;
+            color: #999;
             text-align: center;
             cursor: pointer;
-            border-radius: 20px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: space-around;
+            font-size: 18px;
         }
         .budget-dropdown {
             display: none;
@@ -64,7 +65,10 @@ body {
     }
     .search-container {
             position: relative;
-            width: 240px;
+            background-color: white;
+            width: 100%;
+            border-radius: 10px;
+            margin-left: 5px;
         }
         .search-box {
             display: flex;
@@ -76,7 +80,7 @@ body {
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
-            min-height: 45px;
+            min-height: 33px;
             border-radius: 30px;
             margin-left: 10px;
         }
@@ -86,6 +90,7 @@ body {
             font-size: 16px;
             flex: 1;
             min-width: 100px;
+            width:90%;
             
         }
         .tag {
@@ -126,6 +131,103 @@ body {
         .suggestion:hover {
             background: #f0f0f0;
         }
+        .container1 {
+            display: flex;
+            margin: auto;
+            font-family: Arial, sans-serif;
+            flex-wrap: wrap;
+            
+        }
+
+        /* Input Field */
+        .search-box {
+            width: 93%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            outline: none;
+            border-radius: 10px;
+            border:none;
+            color: #999;
+            
+        }
+
+        /* Dropdown Styling */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            width: 100%;
+            background: white;
+            border: 1px solid #ccc;
+            max-height: 150px; /* Enables scrolling after 5 items */
+            overflow-y: auto;
+            list-style: none;
+            padding: 5px;
+            margin: 0;
+            z-index: 100;
+        }
+
+        .dropdown-menu li {
+            padding: 4px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu li:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        /* Selected Cities */
+        .selected-cities {
+            display: flex;
+            flex-wrap: wrap;
+            /* gap: 10px; */
+            /* margin-top: 10px; */
+        }
+
+        /* City Tag */
+        .city-tag {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 5px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+    margin-top: 5px;
+    margin-left: 5px;
+        }
+        /* Remove Button */
+        .remove-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* Positioning */
+        .dropdown-container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* Selected Cities */
+        .selected-cities {
+            display: flex;
+            
+            flex-wrap: wrap;
+           
+            /* gap: 10px; */
+            /* margin-top: 10px; */
+        }
+
+        /* City Tag */
+       
+
+        
+
    </style>
   </head>
   <body>
@@ -134,16 +236,25 @@ body {
         <div class="location_container">
           <img src="./image/location.png" />
           <div class="search-container">
-        <div class="search-box" onclick="toggleDropdown()">
-            <div id="selectedTags"></div>
-            <input type="text" id="searchInput" placeholder="Enter City">
-        </div>
-        
-        <div class="dropdown" id="searchDropdown">
-            <div class="dropdown__title">You can enter</div>
-            <div class="suggestion" onclick="selectSuggestion('City')">City, Locality</div>
-            <div class="suggestion" onclick="selectSuggestion('Area')">Area (like South Delhi)</div>
-            <div class="suggestion" onclick="selectSuggestion('Project or Builder')">Project or Builder name</div>
+        <div class="container1">
+            <div class="selected-cities" id="selectedCities"></div>
+            <div class="dropdown-container">
+                <input type="text" class="search-box" placeholder="Search city..." onfocus="showDropdown()" onkeyup="filterCities()">
+                <ul class="dropdown-menu" id="cityList">
+                    <li data-value="Noida">Noida</li>
+                    <li data-value="Delhi">Delhi</li>
+                    <li data-value="Mumbai">Mumbai</li>
+                    <li data-value="Bangalore">Bangalore</li>
+                    <li data-value="Chennai">Chennai</li>
+                    <li data-value="Kolkata">Kolkata</li>
+                    <li data-value="Pune">Pune</li>
+                    <li data-value="Hyderabad">Hyderabad</li>
+                    <li data-value="Ahmedabad">Ahmedabad</li>
+                </ul>
+            </div>
+    
+            <!-- Selected Cities -->
+            
         </div>
     </div>
         </div>
@@ -166,11 +277,11 @@ body {
             <div class="data_overflow_container">
                 <div class="data_overflow" id="dataContainer" >
                     <div class="search_property_item" >
-                    <input class="search_property_item_input" type="checkbox" value="" name="" id="residential_0" title="Flat"   checked>
+                    <input class="search_property_item_input" type="checkbox" value="" name="" id="residential_0" title="Flat"   >
                     <label class="search_property_item_label" for="residential_0" onclick="Showflat(this,'flatShow')">Flat</label>
                     </div>
                     <div class="search_property_item" >
-                    <input class="search_property_item_input" value="" type="checkbox" name="" id="residential_1" title="House/Villa"   checked>
+                    <input class="search_property_item_input" value="" type="checkbox" name="" id="residential_1" title="House/Villa"   >
                     <label class="search_property_item_label" for="residential_1" onclick="ShowhouseVilla(this,'flatShow')">House/Villa</label>
                     </div>
                     <div class="search_property_item" >
@@ -184,11 +295,11 @@ body {
                     Bhk</label>
                     </div>
                     <div class="search_property_item">
-                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_1" title="2 Bhk" checked=""> <label class="search_property_item_label" >2
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_1" title="2 Bhk" > <label class="search_property_item_label" >2
                     Bhk</label>
                     </div>
                     <div class="search_property_item">
-                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_2" title="3 Bhk" checked=""> <label class="search_property_item_label"  for="bhkFlatHouse_2">3
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_2" title="3 Bhk" > <label class="search_property_item_label"  for="bhkFlatHouse_2">3
                     Bhk</label>
                     </div>
                     <div class="search_property_item">
@@ -247,13 +358,6 @@ body {
         <div class="red-bg">
             <img src="./image/rupee-indian.png" class="white-icon">
           </div> 
-          <!-- <div>
-            <input
-              type="text"
-              placeholder="Budget"
-              class="location_input"
-            />
-          </div> -->
           <div class="budget-container">
             <div class="budget-title" onclick="toggleBudgetDropdown()">
               Select Budget 
@@ -275,99 +379,120 @@ body {
         </div>
       </div>
     </div>
-    <script>
-      let selectedValues = [];
+ 
+ <script>
+    const searchBox = document.querySelector(".search-box");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    const selectedCities = document.getElementById("selectedCities");
 
-      function toggleDropdown() {
-          let dropdown = document.getElementById("searchDropdown");
-          dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-      }
+    function showDropdown() {
+        dropdownMenu.style.display = "block";
+    }
 
-      function selectSuggestion(text) {
-          if (!selectedValues.includes(text)) {
-              selectedValues.push(text);
-              updateSelectedTags();
-          }
-          document.getElementById("searchInput").value = "";
-          toggleDropdown();
-      }
+    document.addEventListener("click", (e) => {
+        if (!searchBox.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.style.display = "none";
+        }
+    });
 
-      function updateSelectedTags() {
-          let selectedTagsDiv = document.getElementById("selectedTags");
-          selectedTagsDiv.innerHTML = "";
+    document.getElementById("cityList").addEventListener("click", (e) => {
+        if (e.target.tagName === "LI") {
+            const city = e.target.getAttribute("data-value");
 
-          selectedValues.forEach(value => {
-              let tag = document.createElement("div");
-              tag.className = "tag";
-              tag.innerHTML = `${value} <span onclick="removeTag('${value}')">&times;</span>`;
-              selectedTagsDiv.appendChild(tag);
-          });
-      }
+            // Check if city is already added
+            if (document.querySelector(`[data-city="${city}"]`)) return;
 
-      function removeTag(text) {
-          selectedValues = selectedValues.filter(item => item !== text);
-          updateSelectedTags();
-      }
+            // Create city tag
+            const cityTag = document.createElement("div");
+            cityTag.className = "city-tag";
+            cityTag.setAttribute("data-city", city);
+            cityTag.innerHTML = `${city} <button class="remove-btn" onclick="removeCity(this)">×</button>`;
 
-      document.addEventListener("click", function(event) {
-          if (!document.querySelector(".search-container").contains(event.target)) {
-              document.getElementById("searchDropdown").style.display = "none";
-          }
-      });
+            selectedCities.appendChild(cityTag);
+
+            // Clear input and hide dropdown
+            searchBox.value = "";
+            dropdownMenu.style.display = "none";
+        }
+    });
+
+    function removeCity(button) {
+        button.parentElement.remove();
+    }
+
+    function filterCities() {
+        const filter = searchBox.value.toLowerCase();
+        const cityList = document.getElementById("cityList").getElementsByTagName("li");
+
+        for (let i = 0; i < cityList.length; i++) {
+            let city = cityList[i].textContent.toLowerCase();
+            cityList[i].style.display = city.includes(filter) ? "" : "none";
+        }
+    }
+</script>
+<script>
+    const budgetOptions = ["₹5 Lac", "₹10 Lac", "₹20 Lac", "₹30 Lac", "₹40 Lac", "₹50 Lac", "₹60 Lac", "₹70 Lac", "₹80 Lac", "₹90 Lac", "₹1 Cr", "₹1.2 Cr", "₹1.4 Cr", "₹1.6 Cr", "₹1.8 Cr", "₹2 Cr", "₹3 Cr", "₹4 Cr", "₹5 Cr", "₹10 Cr", "₹20 Cr"];
+    const budgetDropdown = document.getElementById("budgetDropdown");
+    const minBudgetList = document.getElementById("minBudgetList");
+    const maxBudgetList = document.getElementById("maxBudgetList");
+    let minSelected = "";
+    let maxSelected = "";
+  
+    function toggleBudgetDropdown() {
+        budgetDropdown.style.display = budgetDropdown.style.display === "flex" ? "none" : "flex";
+        if (budgetDropdown.style.display === "flex") {
+            populateMinBudgetList();
+        }
+    }
+  
+    function populateMinBudgetList() {
+        minBudgetList.innerHTML = "<strong>Min Price</strong>";
+        maxBudgetList.innerHTML = "<strong>Max Price</strong>"; // Reset max price list
+  
+        budgetOptions.forEach(price => {
+            const minDiv = document.createElement("div");
+            minDiv.textContent = price;
+            minDiv.onclick = function() {
+                minSelected = price;
+                maxSelected = ""; // Reset max selection
+                updateTitle();
+                populateMaxBudgetList(); // Refresh max budget list based on selection
+            };
+            minBudgetList.appendChild(minDiv);
+        });
+    }
+  
+    function populateMaxBudgetList() {
+        maxBudgetList.innerHTML = "<strong>Max Price</strong>";
+  
+        let minIndex = budgetOptions.indexOf(minSelected); // Find selected min price index
+  
+        budgetOptions.slice(minIndex+1).forEach(price => { // Only show options >= minSelected
+            const maxDiv = document.createElement("div");
+            maxDiv.textContent = price;
+            maxDiv.onclick = function() {
+                maxSelected = price;
+                updateTitle();
+                budgetDropdown.style.display = "none";
+            };
+            maxBudgetList.appendChild(maxDiv);
+        });
+    }
+  
+    function updateTitle() {
+        let title = "";
+        if (minSelected) title += "Min: " + minSelected;
+        if (maxSelected) title += " - Max: " + maxSelected;
+        document.querySelector(".budget-title").textContent = title || "Select Budget";
+    }
+  
+    document.addEventListener("click", function(event) {
+        if (!document.querySelector(".budget-container").contains(event.target)) {
+            budgetDropdown.style.display = "none";
+        }
+    });
   </script>
-
-    <script>
-      const budgetOptions = ["₹5 Lac", "₹10 Lac", "₹20 Lac", "₹30 Lac", "₹40 Lac", "₹50 Lac", "₹60 Lac", "₹70 Lac", "₹80 Lac", "₹90 Lac", "₹1 Cr", "₹1.2 Cr", "₹1.4 Cr", "₹1.6 Cr", "₹1.8 Cr", "₹2 Cr", "₹3 Cr", "₹4 Cr", "₹5 Cr", "₹10 Cr", "₹20 Cr"];
-      const budgetDropdown = document.getElementById("budgetDropdown");
-      const minBudgetList = document.getElementById("minBudgetList");
-      const maxBudgetList = document.getElementById("maxBudgetList");
-      let minSelected = "";
-      let maxSelected = "";
-      
-      function toggleBudgetDropdown() {
-          budgetDropdown.style.display = budgetDropdown.style.display === "flex" ? "none" : "flex";
-          if (budgetDropdown.style.display === "flex") {
-              populateBudgetLists();
-          }
-      }
-      
-      function populateBudgetLists() {
-          minBudgetList.innerHTML = "<strong>Min Price</strong>";
-          maxBudgetList.innerHTML = "<strong>Max Price</strong>";
-          
-          budgetOptions.forEach(price => {
-              const minDiv = document.createElement("div");
-              minDiv.textContent = price;
-              minDiv.onclick = function() {
-                  minSelected = price;
-                  updateTitle();
-              };
-              minBudgetList.appendChild(minDiv);
-              
-              const maxDiv = document.createElement("div");
-              maxDiv.textContent = price;
-              maxDiv.onclick = function() {
-                  maxSelected = price;
-                  updateTitle();
-                  budgetDropdown.style.display = "none";
-              };
-              maxBudgetList.appendChild(maxDiv);
-          });
-      }
-      
-      function updateTitle() {
-          let title = "";
-          if (minSelected) title += "Min: " + minSelected;
-          if (maxSelected) title += " - Max: " + maxSelected;
-          document.querySelector(".budget-title").textContent = title || "Select Budget";
-      }
-      
-      document.addEventListener("click", function(event) {
-          if (!document.querySelector(".budget-container").contains(event.target)) {
-              budgetDropdown.style.display = "none";
-          }
-      });
-  </script>
+  
     <script>
     document.addEventListener("DOMContentLoaded", function () {
     const propertyTypeDropdown = document.getElementById("toggleContainer");
@@ -462,7 +587,43 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+// document.addEventListener("DOMContentLoaded", function () {
+//     const propertyTypeDisplay = document.querySelector(".home_input");
+//     const checkboxes = document.querySelectorAll(".search_property_item_input, .search_property_item_input1");
 
+//     function updatePropertyCount() {
+//         let selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+//         propertyTypeDisplay.textContent = selectedCount > 0 ? ` Property Type +${selectedCount}` : "Property Type";
+//     }
+
+//     // Listen for changes on checkboxes
+//     checkboxes.forEach(checkbox => {
+//         checkbox.addEventListener("change", updatePropertyCount);
+//     });
+
+//     // Initialize with preselected values
+//     updatePropertyCount();
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const propertyTypeDisplay = document.querySelector(".home_input");
+    const checkboxes = document.querySelectorAll(".search_property_item_input, .search_property_item_input1");
+
+    function updatePropertyDisplay() {
+        let selectedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+        propertyTypeDisplay.textContent = selectedCheckboxes.length > 0 
+            ? `${selectedCheckboxes[selectedCheckboxes.length - 1].title} +${selectedCheckboxes.length}`
+            : "Property Type";
+    }
+
+    // Listen for changes on checkboxes
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", updatePropertyDisplay);
+    });
+
+    // Initialize with preselected values
+    updatePropertyDisplay();
+});
 
       </script>
 <script>

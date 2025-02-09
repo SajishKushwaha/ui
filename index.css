@@ -70,9 +70,9 @@
 .home_input {
   border: none;
   width: 150px;
-  font-size: 20px;
+  font-size: 18px;
   margin-left: 10px;
-  color: black;
+  color: #999;
 }
 .home_input:focus {
   border: none;
@@ -114,7 +114,17 @@
   height: 10px;
 }
 .Property_Type {
+  padding: 6px;
+  background: white;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 12px;
   display: flex;
+  margin-left: 10px;
+  align-items: center;
+  justify-content: space-around;
+  height: 40px;
 }
 
 * {

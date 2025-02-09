@@ -48,7 +48,7 @@
 .flat_container {
   height: 100px;
   width: 120px;
-  border: 2px solid black;
+  border: 1px solid #ccc;
   text-align: center;
   border-radius: 10px;
   padding: 25px;
@@ -60,7 +60,7 @@
 .flat_container.selected {
   background-color: red !important;
   color: white !important;
-  border-color: black !important;
+  border-color: #ccc !important;
 }
 
 /* ✔️ को सही जगह रखने के लिए */
@@ -96,6 +96,7 @@
 }
 .flat_heading {
   font-size: 17px;
+  color: #999;
 }
 .bhk {
   width: 90px;
@@ -115,7 +116,7 @@
   width: 100px;
   background-color: aqua;
   border-radius: 5px;
-
+  border: 1px solid #ccc;
   padding: 10px 15px;
   background-color: white;
   color: black;
@@ -130,10 +131,11 @@
   margin-top: 20px;
 }
 .Check_Advance_button {
-  width: 100%;
+  width: 90%;
   height: 50px;
   border-radius: 16px;
   color: red;
+  border: #ccc;
 }
 .advance_filter_show {
   display: none;
@@ -155,7 +157,11 @@
   border: none;
 }
 .select_dropdown {
-  width: 100%;
+  width: 30%;
+  padding: 7px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  color: #999;
   border-radius: 5px;
-  padding: 10px;
 }

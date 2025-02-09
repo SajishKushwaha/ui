@@ -148,22 +148,23 @@
   }
   
   .bhk {
-      padding: 10px 15px;
-      border: 1px solid #000;
+      padding: 7px 7px;
+      border: 1px solid #ccc;
       cursor: pointer;
       user-select: none;
       transition: background 0.3s, color 0.3s;
+      color:#999;
   }
 
   .bhk.selected {
       background-color: red;
       color: #fff;
-      border-color: black;
+      border-color: #ccc;
   }
   .flat_container.selected {
       background-color: red;
       color: #fff;
-      border-color: black;
+      border-color: #ccc;
   }
   .container {
             max-width: 400px;
@@ -183,6 +184,9 @@
         }
         .selected-cities {
             flex-wrap: wrap;
+            max-width: 500px;
+            max-height: 100px;
+            overflow-y: auto;
         }
         .city-tag {
             background: #007bff;
@@ -233,7 +237,7 @@
         }
 
         .dropdown-menu li {
-            padding: 10px;
+            padding: 2px;
             cursor: pointer;
         }
 
@@ -246,8 +250,8 @@
         .selected-cities {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+            /* gap: 10px; */
+            /* margin-top: 10px; */
         }
 
         /* City Tag */
@@ -276,7 +280,7 @@
             width: 100%;
         }
 .reset_button{
-  width: 100px;
+  width: 130px;
   height: 40px;
   border-radius: 10px;
   background-color: red;
@@ -639,15 +643,21 @@
   }
   function toggleflaticon(element) {
     element.classList.toggle("selected");
-
-    let checkmark = element.querySelector(".checkmark");
-
+    
+    // Find the checkmark inside the clicked flat_container
+    const checkmark = element.querySelector(".checkmark");
+    
     if (element.classList.contains("selected")) {
-        checkmark.style.display = "block"; // ✔️ दिखाओ
+        checkmark.style.display = "inline"; // Show checkmark
     } else {
-        checkmark.style.display = "none"; // ✔️ हटाओ
+        checkmark.style.display = "none"; // Hide checkmark
     }
 }
+
+// Ensure checkmark is initially hidden
+document.querySelectorAll(".checkmark").forEach(checkmark => {
+    checkmark.style.display = "none";
+});
 function CheckAdvanceButton(button) {
     let advanceFilter = document.getElementById("advance_filter");
 
@@ -676,6 +686,45 @@ function CheckAdvanceButton(button) {
       });
   </script>
   
-  
+  <script>
+document.querySelector(".reset_button").addEventListener("click", function () {
+    // सभी इनपुट फ़ील्ड्स को रीसेट करें
+    document.querySelectorAll("input").forEach(input => input.value = "");
+
+    // सभी ड्रॉपडाउन को डिफ़ॉल्ट करें
+    document.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
+
+    // चुने गए शहर हटाएं
+    document.getElementById("selectedCities").innerHTML = "";
+
+    // सभी सेलेक्टेड BHK और Property Type को रीसेट करें
+    document.querySelectorAll(".bhk, .flat_container").forEach(item => item.classList.remove("selected"));
+
+    // स्लाइडर को रीसेट करें (अगर कोई हो)
+    document.querySelector(".range-selected").style.left = "30%";
+    document.querySelector(".range-selected").style.right = "30%";
+
+    // ✔ (Correct) साइन हटाकर ➕ (Plus) साइन दिखाएं
+    document.querySelectorAll(".bhk, .flat_container").forEach(item => {
+    item.classList.remove("selected"); // "selected" क्लास हटाएं
+
+    // अगर यह BHK है, तो "✔️" को "+" से बदलें
+    if (item.classList.contains("bhk")) {
+        if (item.innerHTML.includes("✔️")) {
+            item.innerHTML = "+ " + item.innerHTML.replace("✔️", "").trim();
+        }
+    } 
+    // अगर यह flat_container है, तो सिर्फ "✔️" हटाएं
+    else if (item.classList.contains("flat_container")) {
+      document.querySelectorAll(".flat_container .checkmark").forEach(el => {
+        el.style.display = "none";
+    });
+    }
+});
+
+
+});
+
+</script>
   </body>
 </html>
