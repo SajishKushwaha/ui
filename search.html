@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+   <style>
+body {
+            font-family: Arial, sans-serif;
+        }
+        .budget-container {
+            position: relative;
+            width: 227px;
+            margin-left: 10px;
+            
+           
+        }
+        .budget-title {
+            padding: 10px;
+            background:white;
+            color: black;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .budget-dropdown {
+            display: none;
+            position: absolute;
+            width: 100%;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 10;
+            /* display: flex; */
+            justify-content: space-between;
+        }
+        .budget-list {
+            width: 50%;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .budget-list div {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .budget-list div:hover {
+            background: #f0f0f0;
+        }
+        .arrow1{
+        width: 15px;
+        transition: transform 0.3s ease; /* Smooth rotation */
+    }
+    .rotate {
+        transform: rotate(180deg); /* Rotate 180 degrees */
+    }
+    .search-container {
+            position: relative;
+            width: 240px;
+        }
+        .search-box {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            min-height: 45px;
+            border-radius: 30px;
+            margin-left: 10px;
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            font-size: 16px;
+            flex: 1;
+            min-width: 100px;
+            
+        }
+        .tag {
+            background: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 3px;
+            display: flex;
+            align-items: center;
+        }
+        .tag span {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 10;
+        }
+        .dropdown__title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .suggestion {
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .suggestion:hover {
+            background: #f0f0f0;
+        }
+   </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="search_container">
+        <div class="location_container">
+          <img src="./image/location.png" />
+          <div class="search-container">
+        <div class="search-box" onclick="toggleDropdown()">
+            <div id="selectedTags"></div>
+            <input type="text" id="searchInput" placeholder="Enter City">
+        </div>
+        
+        <div class="dropdown" id="searchDropdown">
+            <div class="dropdown__title">You can enter</div>
+            <div class="suggestion" onclick="selectSuggestion('City')">City, Locality</div>
+            <div class="suggestion" onclick="selectSuggestion('Area')">Area (like South Delhi)</div>
+            <div class="suggestion" onclick="selectSuggestion('Project or Builder')">Project or Builder name</div>
+        </div>
+    </div>
+        </div>
+        <hr class="lineShow" />
+        <div class="location_container" onclick="toggleContainer(event)">
+            <i class="fa fa-home" style="color: red; font-size: 15px;"></i>
+
+          <div class="Property_Type">
+            <!-- <input
+              type="text"
+              placeholder="Property Type"
+              class="home_input"
+            /> -->
+            <span   class="home_input">Property Type</span>
+            <img src="./image/down-arrow.png" class="arrow"/>
+          </div>
+          <div class="toggle_container" id="toggleContainer">
+            <div onclick="toggleData('dataContainer')">Residental <img src="./image/down-arrow.png"/></div>
+           
+            <div class="data_overflow_container">
+                <div class="data_overflow" id="dataContainer" >
+                    <div class="search_property_item" >
+                    <input class="search_property_item_input" type="checkbox" value="" name="" id="residential_0" title="Flat"   checked>
+                    <label class="search_property_item_label" for="residential_0" onclick="Showflat(this,'flatShow')">Flat</label>
+                    </div>
+                    <div class="search_property_item" >
+                    <input class="search_property_item_input" value="" type="checkbox" name="" id="residential_1" title="House/Villa"   checked>
+                    <label class="search_property_item_label" for="residential_1" onclick="ShowhouseVilla(this,'flatShow')">House/Villa</label>
+                    </div>
+                    <div class="search_property_item" >
+                    <input class="search_property_item_input" value="" type="checkbox" name="" id="residential_2" title="Plot"> 
+                    <label class="search_property_item_label"  for="residential_2" onclick="ShowhouseVilla(this,'flatShow')">Plot</label>
+                    </div>
+                </div>
+                <div class="data_overflow1"  id="flatShow">
+                    <div class="search_property_item">
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_0" title="1 Bhk"> <label class="search_property_item_label" >1
+                    Bhk</label>
+                    </div>
+                    <div class="search_property_item">
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_1" title="2 Bhk" checked=""> <label class="search_property_item_label" >2
+                    Bhk</label>
+                    </div>
+                    <div class="search_property_item">
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_2" title="3 Bhk" checked=""> <label class="search_property_item_label"  for="bhkFlatHouse_2">3
+                    Bhk</label>
+                    </div>
+                    <div class="search_property_item">
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_3" title="4 Bhk"> <label class="search_property_item_label"  for="bhkFlatHouse_3">4
+                    Bhk</label>
+                    </div>
+                    <div class="search_property_item">
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_4" title="5 Bhk"> <label class="search_property_item_label"  for="bhkFlatHouse_4">5
+                    Bhk</label>
+                    </div>
+                    <div class="search_property_item">
+                    <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_5" title="5+ Bhk"> <label class="search_property_item_label"  for="bhkFlatHouse_5">5+ Bhk</label>
+                    </div>
+                    <input type="hidden" id="bar_bedrooms" name="bar_bedrooms" value=""> <input type="hidden" id="bedroom_name" name="bedroom_name" value="">
+                </div>
+            </div>
+            <div class="search_property_group prop-type-commercial">
+                <div class="search_property_title"  onclick="toggleProperty('Commercial')">Commercial <img src="./image/down-arrow.png"/></div>
+                <div class="search_property_data" id="Commercial">
+                  <div class="data_overflow">
+                    <div class="search_property_item" >
+                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_0" title="Office Space"> 
+                      <label class="search_property_item_label"  for="commercial_0">Office Space</label>
+                    </div>
+                    <div class="search_property_item" >
+                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_1" title="Shop/Showroom"> 
+                      <label class="search_property_item_label"  for="commercial_1">Shop/Showroom</label>
+                    </div>
+                    <div class="search_property_item" >
+                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_2" title="Commercial Land"> 
+                      <label class="search_property_item_label"  for="commercial_2">Commercial Land</label>
+                    </div>
+                    <div class="search_property_item" >
+                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_3" title="Warehouse/Godown"> 
+                      <label class="search_property_item_label"  for="commercial_3">Warehouse/Godown</label>
+                    </div>
+                    <div class="search_property_item" >
+                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_4" title="Industrial Building">
+                      <label class="search_property_item_label"  for="commercial_4">Industrial Building</label>
+                    </div>
+                    <div class="search_property_item" >
+                      <input class="search_property_item_input1" value="10014" type="checkbox" name="bar_propertyType_new_buy" id="commercial_5" title="Industrial Shed"> 
+                      <label class="search_property_item_label"  for="commercial_5">Industrial Shed</label>
+                    </div>
+                  </div>
+                  <div class="clearAll"></div>
+                </div>
+            </div>
+              
+          </div>
+            
+         </div>
+           
+        <hr class="lineShow" />
+        <div class="location_container">
+        <div class="red-bg">
+            <img src="./image/rupee-indian.png" class="white-icon">
+          </div> 
+          <!-- <div>
+            <input
+              type="text"
+              placeholder="Budget"
+              class="location_input"
+            />
+          </div> -->
+          <div class="budget-container">
+            <div class="budget-title" onclick="toggleBudgetDropdown()">
+              Select Budget 
+              <img src="./image/down-arrow.png" class="arrow1" id="dropdownArrow"/>
+          </div>
+            <div class="budget-dropdown" id="budgetDropdown">
+                <div class="budget-list" id="minBudgetList"></div>
+                <div class="budget-list" id="maxBudgetList"></div>
+            </div>
+        </div>
+        </div>
+      
+  
+  
+          <button class="search_button">
+            <i class="fa fa-search" style="color: white; font-size: 17px; margin-right: 10px;"></i
+            >Search
+         
+        </div>
+      </div>
+    </div>
+    <script>
+      let selectedValues = [];
+
+      function toggleDropdown() {
+          let dropdown = document.getElementById("searchDropdown");
+          dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      function selectSuggestion(text) {
+          if (!selectedValues.includes(text)) {
+              selectedValues.push(text);
+              updateSelectedTags();
+          }
+          document.getElementById("searchInput").value = "";
+          toggleDropdown();
+      }
+
+      function updateSelectedTags() {
+          let selectedTagsDiv = document.getElementById("selectedTags");
+          selectedTagsDiv.innerHTML = "";
+
+          selectedValues.forEach(value => {
+              let tag = document.createElement("div");
+              tag.className = "tag";
+              tag.innerHTML = `${value} <span onclick="removeTag('${value}')">&times;</span>`;
+              selectedTagsDiv.appendChild(tag);
+          });
+      }
+
+      function removeTag(text) {
+          selectedValues = selectedValues.filter(item => item !== text);
+          updateSelectedTags();
+      }
+
+      document.addEventListener("click", function(event) {
+          if (!document.querySelector(".search-container").contains(event.target)) {
+              document.getElementById("searchDropdown").style.display = "none";
+          }
+      });
+  </script>
+
+    <script>
+      const budgetOptions = ["₹5 Lac", "₹10 Lac", "₹20 Lac", "₹30 Lac", "₹40 Lac", "₹50 Lac", "₹60 Lac", "₹70 Lac", "₹80 Lac", "₹90 Lac", "₹1 Cr", "₹1.2 Cr", "₹1.4 Cr", "₹1.6 Cr", "₹1.8 Cr", "₹2 Cr", "₹3 Cr", "₹4 Cr", "₹5 Cr", "₹10 Cr", "₹20 Cr"];
+      const budgetDropdown = document.getElementById("budgetDropdown");
+      const minBudgetList = document.getElementById("minBudgetList");
+      const maxBudgetList = document.getElementById("maxBudgetList");
+      let minSelected = "";
+      let maxSelected = "";
+      
+      function toggleBudgetDropdown() {
+          budgetDropdown.style.display = budgetDropdown.style.display === "flex" ? "none" : "flex";
+          if (budgetDropdown.style.display === "flex") {
+              populateBudgetLists();
+          }
+      }
+      
+      function populateBudgetLists() {
+          minBudgetList.innerHTML = "<strong>Min Price</strong>";
+          maxBudgetList.innerHTML = "<strong>Max Price</strong>";
+          
+          budgetOptions.forEach(price => {
+              const minDiv = document.createElement("div");
+              minDiv.textContent = price;
+              minDiv.onclick = function() {
+                  minSelected = price;
+                  updateTitle();
+              };
+              minBudgetList.appendChild(minDiv);
+              
+              const maxDiv = document.createElement("div");
+              maxDiv.textContent = price;
+              maxDiv.onclick = function() {
+                  maxSelected = price;
+                  updateTitle();
+                  budgetDropdown.style.display = "none";
+              };
+              maxBudgetList.appendChild(maxDiv);
+          });
+      }
+      
+      function updateTitle() {
+          let title = "";
+          if (minSelected) title += "Min: " + minSelected;
+          if (maxSelected) title += " - Max: " + maxSelected;
+          document.querySelector(".budget-title").textContent = title || "Select Budget";
+      }
+      
+      document.addEventListener("click", function(event) {
+          if (!document.querySelector(".budget-container").contains(event.target)) {
+              budgetDropdown.style.display = "none";
+          }
+      });
+  </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const propertyTypeDropdown = document.getElementById("toggleContainer");
+    const residentialContainer = document.getElementById("dataContainer");
+    const commercialToggles = document.querySelectorAll(".search_property_title");
+    const propertyItems = document.querySelectorAll(".search_property_item");
+    const Commercial = document.getElementById("Commercial");
+
+    // ✅ Property Type dropdown toggle
+    document.querySelector(".Property_Type").addEventListener("click", function (event) {
+        event.stopPropagation();
+        propertyTypeDropdown.classList.toggle("show");
+    });
+
+    // ✅ Residential dropdown toggle
+ 
+
+    // ✅ Commercial dropdown toggle for each commercial section
+    // commercialToggles.forEach(toggle => {
+    //     toggle.addEventListener("click", function (event) {
+    //         event.stopPropagation();
+    //         const commercialContainer = this.nextElementSibling;
+    //         commercialContainer.classList.toggle("active");
+    //     });
+    // });
+
+    // ✅ Click outside to close all dropdowns
+    document.addEventListener("click", function (event) {
+        if (!propertyTypeDropdown.contains(event.target) && !event.target.closest(".Property_Type")) {
+            propertyTypeDropdown.classList.remove("show");
+            residentialContainer.classList.remove("active");
+            document.querySelectorAll(".search_property_data").forEach(commercialContainer => {
+                commercialContainer.classList.remove("active");
+            });
+        }
+    });
+
+    // ✅ Checkbox selection toggle
+    propertyItems.forEach(item => {
+        item.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent dropdown from closing
+            this.classList.toggle("selected");
+
+            // Toggle checkbox checked state
+            let checkbox = this.querySelector("input[type='checkbox']");
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+            }
+        });
+    });
+});
+function toggleProperty(id) {
+    var element = document.getElementById(id);
+    element.classList.toggle("show");
+}
+function toggleData(id) {
+    var element = document.getElementById(id);
+    element.classList.toggle("data_overflow_show");
+    
+}
+function Showflat(labelElement,id) {
+    var element = document.getElementById(id);
+    element.classList.toggle("data_overflow_show1");
+    labelElement.classList.toggle("search_property_item_label_active");
+}
+function ShowhouseVilla(labelElement,id) {
+    // var element = document.getElementById(id);
+    // element.classList.toggle("data_overflow_show1");
+    labelElement.classList.toggle("search_property_item_label_active");
+}
+document.addEventListener("DOMContentLoaded", function () {
+    var checkboxes = document.querySelectorAll(".search_property_item_input1");
+
+    checkboxes.forEach(function (checkbox) {
+        var label = checkbox.nextElementSibling; // Checkbox के बाद का Label
+        
+        // ✅ पहले से checked elements का color set करें
+        if (checkbox.checked) {
+            label.classList.add("active");
+        }
+
+        // ✅ Click पर color toggle करें (Label को भी क्लिकेबल बनाएं)
+        label.addEventListener("click", function (event) {
+            event.preventDefault(); // Default label behavior को रोकें
+            checkbox.checked = !checkbox.checked; // Checkbox की स्थिति बदलें
+            
+            if (checkbox.checked) {
+                label.classList.add("active");  // Select होने पर color आए
+            } else {
+                label.classList.remove("active"); // Unselect होने पर remove हो
+            }
+        });
+    });
+});
+
+
+      </script>
+      <script>
+        if (window.innerWidth < 768) {
+            window.location.href = "mobile_view_filter.html"; // Redirect to mobile version
+        } else {
+            window.location.href = "search.html"; // Redirect to desktop version
+        }
+    </script>
+  </body>
+</html>

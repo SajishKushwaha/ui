@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="mobile_view_filter.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      .range-slider {
+        height: 5px;
+        position: relative;
+        background-color: #e1e9f6;
+        border-radius: 2px;
+      }
+      .range-selected {
+        height: 100%;
+        left: 30%;
+        right: 30%;
+        position: absolute;
+        border-radius: 5px;
+        background-color: #1b53c0;
+        top: -5px;
+      }
+
+
+      .range-input {
+        position: relative;
+      }
+      .range-input input {
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        top: -7px;
+        background: none;
+        pointer-events: none;
+       
+      }
+      .range-input input::-webkit-slider-thumb {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        border: 3px solid #1b53c0;
+        background-color: #fff;
+        pointer-events: auto;
+        -webkit-appearance: none;
+      }
+      .range-input input::-moz-range-thumb {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        border: 3px solid #1b53c0;
+        background-color: #fff;
+        pointer-events: auto;
+        -moz-appearance: none;
+      }
+      .range-price {
+        margin: 30px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+      }
+      .range-price label {
+        margin-right: 5px;
+      }
+      .range-price input {
+        width: 170px;
+        padding: 5px;
+        border-radius: 10px;
+      }
+      .range-price input:first-of-type {
+        margin-right: 15px;
+      }
+      .city {
+      display: flex;
+      gap: 10px;
+  }
+  
+  .bhk {
+      padding: 10px 15px;
+      border: 1px solid #000;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s, color 0.3s;
+  }
+
+  .bhk.selected {
+      background-color: red;
+      color: #fff;
+      border-color: black;
+  }
+  .flat_container.selected {
+      background-color: red;
+      color: #fff;
+      border-color: black;
+  }
+  .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        .dropdown-row, .selected-cities {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 10px;
+        }
+        .selected-cities {
+            flex-wrap: wrap;
+        }
+        .city-tag {
+            background: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="city_container mt-5">
+      <!-- <div>
+        <h1 class="city_heading">Select City/Localities</h1>
+        <div class="city">
+          <div class="city_name">Noida</div>
+          <button class="city_name addMore add_more_span">
+            <span class="add_more_span">+</span> Add More
+          </button>
+        </div>
+      </div>
+      </div> -->
+      <div class="container">
+        <!-- Row 1: City Dropdown -->
+          <h1 class="city_heading">Select City/Localities</h1>
+        <div class="dropdown-row1">
+            <select id="cityDropdown">
+                <option value="">Select City</option>
+                <option value="Noida">Noida</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Bangalore">Bangalore</option>
+            </select>
+        </div>
+
+        <!-- Row 2: Selected Cities Display -->
+        <div class="selected-cities" id="selectedCities"></div>
+    </div>
+
+      <hr />
+      <div>
+        <h1 class="city_heading">Budget</h1>
+        
+        <!-- <div class="range">
+          <div class="range-price range">
+           
+            <input type="number" name="min" value="" placeholder="MIN" />
+            <p style="margin-top: 10px;margin-right: 10px;">to</p>
+            <input type="number" name="max" value="" placeholder="MAX"/>
+          </div>
+          <div class="range-slider">
+            <span class="range-selected"></span>
+          </div>
+          <div class="range-input">
+            <input
+              type="range"
+              class="min"
+              min="0"
+              max="1000"
+              value="300"
+              step="10"
+            />
+            <input
+              type="range"
+              class="max"
+              min="0"
+              max="1000"
+              value="700"
+              step="10"
+            />
+          </div>
+        </div> -->
+        <div class="range">
+          <div class="range-price range">
+              <select id="minDropdown" class="select_dropdown">
+                <option selected>MIN</option>
+                  <option value="100">100</option>
+                  <option value="200">200</option>
+                  <option value="300" >300</option>
+                  <option value="400">400</option>
+              </select>
+              
+              <p style="margin-top: 10px; margin-right: 10px;">to</p>
+      
+              <select id="maxDropdown" class="select_dropdown">
+                <option selected>MAX</option>
+                  <option value="600">600</option>
+                  <option value="700" >700</option>
+                  <option value="800">800</option>
+                  <option value="900">900</option>
+              </select>
+          </div>
+      
+          <!-- <div class="range-slider">
+              <span class="range-selected"></span>
+          </div>
+      
+          <div class="range-input">
+              <input type="range" class="min" min="0" max="1000" value="300" step="10"/>
+              <input type="range" class="max" min="0" max="1000" value="700" step="10"/>
+          </div> -->
+      </div>
+      </div>
+      <div class="mt-5">
+        <h1 class="city_heading">Property Type</h1>
+        <div class="city">
+          <!-- <div class="flat_container" onclick="toggleflaticon(this)">
+            <img src="buildings.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div> -->
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/buildings.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+        </div>
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/business-and-trade.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div>
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/house.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div>
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/land.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div>
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/store.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div>
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/land.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div>
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/buildings.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div>
+          <div class="flat_container" onclick="toggleflaticon(this)">
+            <span class="checkmark">✔️</span>
+            <img src="./image/buildings.png" class="flat_icon"/>
+            <h1 class="flat_heading">Flat</h1>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5">
+        <h1 class="city_heading">BHK</h1>
+        <div class="city">
+          <div class="bhk" onclick="toggleBHK(this)">+ 1 BHK</div>
+          <div class="bhk" onclick="toggleBHK(this)">+ 2 BHK</div>
+          <div class="bhk" onclick="toggleBHK(this)">+ 3 BHK</div>
+          <div class="bhk" onclick="toggleBHK(this)">+ 4 BHK</div>
+          <div class="bhk" onclick="toggleBHK(this)">+ 5 BHK</div>
+      </div>
+      </div>
+      </div>
+      <div class="Check_Advance_Filters">
+        <button class="Check_Advance_button" onclick="CheckAdvanceButton(this)">Check Advance Filters</button>
+      </div>
+      
+      <div class="advance_filter_show" id="advance_filter">
+        <div class="mt-5">
+          <h1 class="city_heading">Posted By</h1>
+          <div class="city">
+            <div class="bhk posted" onclick="toggleBHK(this)">+ Owners</div>
+            <div class="bhk posted" onclick="toggleBHK(this)">+ Brokers</div>
+            <div class="bhk posted" onclick="toggleBHK(this)">+ 3 Buildrs</div>  
+          </div>
+        </div>
+        <div class="mt-5">
+          <h1 class="city_heading">Covered Area(sqft)</h1>
+          <div class="range">
+              <div class="range-price range">
+               
+                <input type="number" name="min" value="" placeholder="MIN" />
+                <p style="margin-top: 10px;margin-right: 10px;">to</p>
+                <input type="number" name="max" value="" placeholder="MAX"/>
+              </div>
+              <div class="range-slider">
+                <span class="range-selected"></span>
+              </div>
+              <div class="range-input">
+                <input
+                  type="range"
+                  class="min"
+                  min="0"
+                  max="1000"
+                  value="300"
+                  step="10"
+                />
+                <input
+                  type="range"
+                  class="max"
+                  min="0"
+                  max="1000"
+                  value="700"
+                  step="10"
+                />
+              </div>
+            </div>
+         
+        </div>
+        <hr />
+      </div>
+      
+     </div>
+     <div class="">
+      <button class="Check_Advance_button view_all" >View Properties</button>
+    </div>
+    </div>
+    <script>
+  document.getElementById("cityDropdown").addEventListener("change", function() {
+            const dropdown = this;
+            const selectedCities = document.getElementById("selectedCities");
+
+            const city = dropdown.value;
+            if (!city) return;
+
+            // Check if city is already added
+            if (document.querySelector(`[data-city="${city}"]`)) return;
+
+            // Create city tag
+            const cityTag = document.createElement("div");
+            cityTag.className = "city-tag";
+            cityTag.setAttribute("data-city", city);
+            cityTag.innerHTML = `${city} <button class="remove-btn" onclick="removeCity(this)">×</button>`;
+
+            selectedCities.appendChild(cityTag);
+
+            // Reset dropdown
+            dropdown.value = "";
+        });
+
+        function removeCity(button) {
+            button.parentElement.remove();
+        }
+  </script>
+  
+    <script>
+      let rangeMin = 100;
+      const range = document.querySelector(".range-selected");
+      const rangeInput = document.querySelectorAll(".range-input input");
+      const rangePrice = document.querySelectorAll(".range-price input");
+      rangeInput.forEach((input) => {
+        input.addEventListener("input", (e) => {
+          let minRange = parseInt(rangeInput[0].value);
+          let maxRange = parseInt(rangeInput[1].value);
+          if (maxRange - minRange < rangeMin) {
+            if (e.target.className === "min") {
+              rangeInput[0].value = maxRange - rangeMin;
+            } else {
+              rangeInput[1].value = minRange + rangeMin;
+            }
+          } else {
+            rangePrice[0].value = minRange;
+            rangePrice[1].value = maxRange;
+            range.style.left = (minRange / rangeInput[0].max) * 100 + "%";
+            range.style.right =
+              100 - (maxRange / rangeInput[1].max) * 100 + "%";
+          }
+        });
+      });
+      rangePrice.forEach((input) => {
+        input.addEventListener("input", (e) => {
+          let minPrice = rangePrice[0].value;
+          let maxPrice = rangePrice[1].value;
+          if (
+            maxPrice - minPrice >= rangeMin &&
+            maxPrice <= rangeInput[1].max
+          ) {
+            if (e.target.className === "min") {
+              rangeInput[0].value = minPrice;
+              range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+            } else {
+              rangeInput[1].value = maxPrice;
+              range.style.right =
+                100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+            }
+          }
+        });
+      });
+    </script>
+<script>
+  function toggleBHK(element) {
+      element.classList.toggle("selected");
+
+      // Toggle sign between "+" and "✔️"
+      if (element.classList.contains("selected")) {
+          element.innerHTML = "✔️ " + element.innerHTML.slice(2);
+      } else {
+          element.innerHTML = "+ " + element.innerHTML.slice(2);
+      }
+  }
+  function toggleflaticon(element) {
+    element.classList.toggle("selected");
+
+    let checkmark = element.querySelector(".checkmark");
+
+    if (element.classList.contains("selected")) {
+        checkmark.style.display = "block"; // ✔️ दिखाओ
+    } else {
+        checkmark.style.display = "none"; // ✔️ हटाओ
+    }
+}
+function CheckAdvanceButton(button) {
+    let advanceFilter = document.getElementById("advance_filter");
+
+    if (advanceFilter.style.display === "none" || advanceFilter.style.display === "") {
+        advanceFilter.style.display = "block"; // Show Advance Filters
+        button.style.display = "none"; // Hide Button
+    }
+}
+
+  </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      if (window.innerWidth < 768) {
+          window.location.href = "mobile_view_filter.html"; // Redirect to mobile version
+      } else {
+          window.location.href = "search.html"; // Redirect to desktop version
+      }
+  </script>
+  </body>
+</html>

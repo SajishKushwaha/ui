@@ -1,0 +1,161 @@
+/* .city_container {
+  border-style: solid;
+  border-width: 1px;
+} */
+* {
+  margin: 7px;
+}
+.city {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.city_name {
+  background-color: aqua;
+  border-radius: 5px;
+  padding: 10px;
+  border-radius: 17px;
+}
+.addMore {
+  margin-left: 10px;
+  background-color: white;
+  border-style: solid;
+  border-color: aliceblue;
+}
+.add_more_span {
+  color: grey;
+}
+.city_heading {
+  font-size: 15px;
+}
+.drop_down {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.flat_container {
+  height: 100px;
+  width: 120px;
+  border-style: solid;
+  text-align: center;
+
+  border-radius: 10px;
+  padding: 25px;
+}
+.flat_container {
+  height: 100px;
+  width: 120px;
+  border: 2px solid black;
+  text-align: center;
+  border-radius: 10px;
+  padding: 25px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.flat_container.selected {
+  background-color: red !important;
+  color: white !important;
+  border-color: black !important;
+}
+
+/* ✔️ को सही जगह रखने के लिए */
+.flat_container .checkmark {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  display: none;
+}
+
+/* Selected होने पर ✔️ दिखेगा */
+.flat_container.selected .checkmark {
+  display: block;
+}
+
+/* Image का color change न हो */
+.flat_container img {
+  filter: none; /* Default में कोई effect नहीं */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Selected होने पर भी Image unchanged रहे */
+.flat_container.selected img {
+  filter: brightness(100%) contrast(100%);
+}
+
+.flat_icon {
+  height: 30px;
+  color: white;
+}
+.flat_heading {
+  font-size: 17px;
+}
+.bhk {
+  width: 90px;
+  background-color: aqua;
+  border-radius: 5px;
+
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 17px;
+}
+
+.posted {
+  width: 100px;
+  background-color: aqua;
+  border-radius: 5px;
+
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 17px;
+}
+.Check_Advance_Filters {
+  text-align: center;
+
+  margin-top: 20px;
+}
+.Check_Advance_button {
+  width: 100%;
+  height: 50px;
+  border-radius: 16px;
+  color: red;
+}
+.advance_filter_show {
+  display: none;
+  margin-bottom: 80px;
+}
+#advance_filter {
+  display: none; /* By default hidden */
+}
+.view_all {
+  position: fixed;
+  bottom: 10px;
+  left: 24px;
+  width: 90%;
+  background: red;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  z-index: 1000;
+  color: white;
+  border: none;
+}
+.select_dropdown {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+}
