@@ -465,12 +465,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       </script>
-      <script>
-        if (window.innerWidth < 768) {
-            window.location.href = "mobile_view_filter.html"; // Redirect to mobile version
-        } else {
-            window.location.href = "index.html"; // Redirect to desktop version
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.innerWidth < 768 && window.location.pathname !== "/mobile_view_filter.html") {
+            window.location.href = "mobile_view_filter.html"; 
+        } else if (window.innerWidth >= 768 && window.location.pathname !== "/index.html") {
+            window.location.href = "index.html"; 
         }
-    </script>
+    });
+</script>
+
   </body>
 </html>
