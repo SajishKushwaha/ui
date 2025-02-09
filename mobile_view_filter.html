@@ -457,14 +457,18 @@ function CheckAdvanceButton(button) {
       crossorigin="anonymous"
     ></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          if (window.innerWidth < 768 && window.location.pathname !== "/mobile_view_filter.html") {
+      document.addEventListener("DOMContentLoaded", function () {
+          const currentURL = window.location.href; // Get full URL
+  
+          if (window.innerWidth < 768 && !currentURL.includes("mobile_view_filter.html")) {
               window.location.href = "mobile_view_filter.html"; 
-          } else if (window.innerWidth >= 768 && window.location.pathname !== "/index.html") {
+          } 
+          else if (window.innerWidth >= 768 && !currentURL.includes("index.html")) {
               window.location.href = "index.html"; 
           }
       });
   </script>
+  
   
   </body>
 </html>
