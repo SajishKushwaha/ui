@@ -202,29 +202,22 @@
             font-size: 16px;
         }
         .container {
-           
-            margin: auto;
             
+            margin: auto;
             font-family: Arial, sans-serif;
         }
 
-        /* Dropdown Styling */
-        .dropdown-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .dropdown-btn {
+        /* Input Field */
+        .search-box {
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            background: white;
             border: 1px solid #ccc;
-            cursor: pointer;
-            text-align: left;
+            outline: none;
             border-radius: 10px;
         }
 
+        /* Dropdown Styling */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -232,7 +225,7 @@
             background: white;
             border: 1px solid #ccc;
             max-height: 150px; /* Enables scrolling after 5 items */
-            overflow-y: auto; /* Allows vertical scrolling */
+            overflow-y: auto;
             list-style: none;
             padding: 0;
             margin: 0;
@@ -249,7 +242,7 @@
             color: white;
         }
 
-        /* Selected Cities Display */
+        /* Selected Cities */
         .selected-cities {
             display: flex;
             flex-wrap: wrap;
@@ -276,6 +269,13 @@
             margin-left: 5px;
             cursor: pointer;
         }
+
+        /* Positioning */
+        .dropdown-container {
+            position: relative;
+            width: 100%;
+        }
+
     </style>
   </head>
 
@@ -291,13 +291,14 @@
         </div>
       </div>
       </div> -->
+
       <div class="container">
         <h1 class="city_heading">Select City/Localities</h1>
 
-        <!-- Custom Dropdown -->
+        <!-- Search Input instead of Button -->
         <div class="dropdown-container">
-            <button class="dropdown-btn">Select City</button>
-            <ul class="dropdown-menu">
+            <input type="text" class="search-box" placeholder="Search city..." onfocus="showDropdown()" onkeyup="filterCities()">
+            <ul class="dropdown-menu" id="cityList">
                 <li data-value="Noida">Noida</li>
                 <li data-value="Delhi">Delhi</li>
                 <li data-value="Mumbai">Mumbai</li>
@@ -310,7 +311,7 @@
             </ul>
         </div>
 
-        <!-- Selected Cities Display -->
+        <!-- Selected Cities -->
         <div class="selected-cities" id="selectedCities"></div>
     </div>
 
@@ -493,22 +494,21 @@
     </div>
     </div>
     <script>
-      const dropdownBtn = document.querySelector(".dropdown-btn");
+      const searchBox = document.querySelector(".search-box");
       const dropdownMenu = document.querySelector(".dropdown-menu");
       const selectedCities = document.getElementById("selectedCities");
 
-      dropdownBtn.addEventListener("click", () => {
-          dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-      });
+      function showDropdown() {
+          dropdownMenu.style.display = "block";
+      }
 
       document.addEventListener("click", (e) => {
-          if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+          if (!searchBox.contains(e.target) && !dropdownMenu.contains(e.target)) {
               dropdownMenu.style.display = "none";
           }
       });
 
-      // Handle selection
-      dropdownMenu.addEventListener("click", (e) => {
+      document.getElementById("cityList").addEventListener("click", (e) => {
           if (e.target.tagName === "LI") {
               const city = e.target.getAttribute("data-value");
 
@@ -523,15 +523,27 @@
 
               selectedCities.appendChild(cityTag);
 
-              dropdownMenu.style.display = "none"; // Close dropdown
-              dropdownBtn.textContent = "Select City"; // Reset button text
+              // Clear input and hide dropdown
+              searchBox.value = "";
+              dropdownMenu.style.display = "none";
           }
       });
 
       function removeCity(button) {
           button.parentElement.remove();
       }
+
+      function filterCities() {
+          const filter = searchBox.value.toLowerCase();
+          const cityList = document.getElementById("cityList").getElementsByTagName("li");
+
+          for (let i = 0; i < cityList.length; i++) {
+              let city = cityList[i].textContent.toLowerCase();
+              cityList[i].style.display = city.includes(filter) ? "" : "none";
+          }
+      }
   </script>
+
     <!-- <script>
   document.getElementById("cityDropdown").addEventListener("change", function() {
             const dropdown = this;
