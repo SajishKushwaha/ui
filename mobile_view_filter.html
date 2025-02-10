@@ -187,16 +187,7 @@
             max-width: 500px;
             max-height: 100px;
             overflow-y: auto;
-        }
-        .city-tag {
-            background: #007bff;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            margin: 5px;
-        }
+        } 
         .remove-btn {
             background: none;
             border: none;
@@ -262,6 +253,9 @@
             border-radius: 15px;
             display: flex;
             align-items: center;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            margin-left: 0px;
         }
 
         /* Remove Button */
@@ -280,8 +274,8 @@
             width: 100%;
         }
 .reset_button{
-  width: 130px;
-  height: 40px;
+  width: 104px;
+  height: 44px;
   border-radius: 10px;
   background-color: red;
   color:white;
@@ -291,6 +285,7 @@
   </head>
 
   <body>
+    <form class="city_container mt-3">
     <div class="city_container mt-3">
       <!-- <div>
         <h1 class="city_heading">Select City/Localities</h1>
@@ -454,7 +449,7 @@
       </div>
       </div>
       <div class="Check_Advance_Filters">
-        <button class="Check_Advance_button" onclick="CheckAdvanceButton(this)">Check Advance Filters</button>
+        <button type="button"class="Check_Advance_button" onclick="CheckAdvanceButton(this)">Check Advance Filters</button>
       </div>
       
       <div class="advance_filter_show" id="advance_filter">
@@ -504,7 +499,7 @@
       
      </div>
      <div class="">
-      <button class="Check_Advance_button view_all" >View Properties</button>
+      <button type="submit" class="Check_Advance_button view_all" >View Properties</button>
     </div>
     </div>
     <script>
@@ -557,35 +552,47 @@
           }
       }
   </script>
+<script>
+  const priceOptions = [100, 200, 300, 400, 600, 700, 800, 900]; 
+  const minDropdown = document.getElementById("minDropdown");
+  const maxDropdown = document.getElementById("maxDropdown");
 
-    <!-- <script>
-  document.getElementById("cityDropdown").addEventListener("change", function() {
-            const dropdown = this;
-            const selectedCities = document.getElementById("selectedCities");
+  function populateMinDropdown() {
+      minDropdown.innerHTML = '<option selected>MIN</option>';
+      maxDropdown.innerHTML = '<option selected>MAX</option>'; // Reset max dropdown
 
-            const city = dropdown.value;
-            if (!city) return;
+      priceOptions.forEach(price => {
+          const option = document.createElement("option");
+          option.value = price;
+          option.textContent = price;
+          minDropdown.appendChild(option);
+      });
+  }
 
-            // Check if city is already added
-            if (document.querySelector(`[data-city="${city}"]`)) return;
+  function populateMaxDropdown(minValue) {
+      maxDropdown.innerHTML = '<option selected>MAX</option>'; // Reset max dropdown
 
-            // Create city tag
-            const cityTag = document.createElement("div");
-            cityTag.className = "city-tag";
-            cityTag.setAttribute("data-city", city);
-            cityTag.innerHTML = `${city} <button class="remove-btn" onclick="removeCity(this)">×</button>`;
+      priceOptions.forEach(price => {
+          if (price > minValue) { 
+              const option = document.createElement("option");
+              option.value = price;
+              option.textContent = price;
+              maxDropdown.appendChild(option);
+          }
+      });
+  }
 
-            selectedCities.appendChild(cityTag);
+  minDropdown.addEventListener("change", function () {
+      const minValue = parseInt(this.value);
+      if (!isNaN(minValue)) {
+          populateMaxDropdown(minValue);
+      }
+  });
 
-            // Reset dropdown
-            dropdown.value = "";
-        });
+  populateMinDropdown(); // Initial population
+</script>
 
-        function removeCity(button) {
-            button.parentElement.remove();
-        }
-  </script>
-   -->
+
     <script>
       let rangeMin = 100;
       const range = document.querySelector(".range-selected");

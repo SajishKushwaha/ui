@@ -321,28 +321,28 @@ body {
                 <div class="search_property_data" id="Commercial">
                   <div class="data_overflow">
                     <div class="search_property_item" >
-                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_0" title="Office Space"> 
-                      <label class="search_property_item_label"  for="commercial_0">Office Space</label>
+                      <input class="search_property_item_input " value="" type="checkbox" name="" id="commercial_0" title="Office Space" > 
+                      <label class="search_property_item_label"  for="commercial_0" onclick="ShowhouseVilla(this,'flatShow')">Office Space</label>
                     </div>
                     <div class="search_property_item" >
-                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_1" title="Shop/Showroom"> 
-                      <label class="search_property_item_label"  for="commercial_1">Shop/Showroom</label>
+                      <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_1" title="Shop/Showroom" > 
+                      <label class="search_property_item_label"  for="commercial_1" onclick="ShowhouseVilla(this,'flatShow')">Shop/Showroom</label>
                     </div>
                     <div class="search_property_item" >
-                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_2" title="Commercial Land"> 
-                      <label class="search_property_item_label"  for="commercial_2">Commercial Land</label>
+                      <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_2" title="Commercial Land"> 
+                      <label class="search_property_item_label"  for="commercial_2" onclick="ShowhouseVilla(this,'flatShow')">Commercial Land</label>
                     </div>
                     <div class="search_property_item" >
-                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_3" title="Warehouse/Godown"> 
-                      <label class="search_property_item_label"  for="commercial_3">Warehouse/Godown</label>
+                      <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_3" title="Warehouse/Godown"> 
+                      <label class="search_property_item_label"  for="commercial_3" onclick="ShowhouseVilla(this,'flatShow')">Warehouse/Godown</label>
                     </div>
                     <div class="search_property_item" >
-                      <input class="search_property_item_input1" value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_4" title="Industrial Building">
-                      <label class="search_property_item_label"  for="commercial_4">Industrial Building</label>
+                      <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_4" title="Industrial Building">
+                      <label class="search_property_item_label"  for="commercial_4" onclick="ShowhouseVilla(this,'flatShow')">Industrial Building</label>
                     </div>
                     <div class="search_property_item" >
-                      <input class="search_property_item_input1" value="10014" type="checkbox" name="bar_propertyType_new_buy" id="commercial_5" title="Industrial Shed"> 
-                      <label class="search_property_item_label"  for="commercial_5">Industrial Shed</label>
+                      <input class="search_property_item_input " value="10014" type="checkbox" name="bar_propertyType_new_buy" id="commercial_5" title="Industrial Shed"> 
+                      <label class="search_property_item_label"  for="commercial_5" onclick="ShowhouseVilla(this,'flatShow')">Industrial Shed</label>
                     </div>
                   </div>
                   <div class="clearAll"></div>
@@ -587,45 +587,31 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-// document.addEventListener("DOMContentLoaded", function () {
-//     const propertyTypeDisplay = document.querySelector(".home_input");
-//     const checkboxes = document.querySelectorAll(".search_property_item_input, .search_property_item_input1");
 
-//     function updatePropertyCount() {
-//         let selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-//         propertyTypeDisplay.textContent = selectedCount > 0 ? ` Property Type +${selectedCount}` : "Property Type";
-//     }
-
-//     // Listen for changes on checkboxes
-//     checkboxes.forEach(checkbox => {
-//         checkbox.addEventListener("change", updatePropertyCount);
-//     });
-
-//     // Initialize with preselected values
-//     updatePropertyCount();
-// });
-
-document.addEventListener("DOMContentLoaded", function () {
-    const propertyTypeDisplay = document.querySelector(".home_input");
-    const checkboxes = document.querySelectorAll(".search_property_item_input, .search_property_item_input1");
-
-    function updatePropertyDisplay() {
-        let selectedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-        propertyTypeDisplay.textContent = selectedCheckboxes.length > 0 
-            ? `${selectedCheckboxes[selectedCheckboxes.length - 1].title} +${selectedCheckboxes.length}`
-            : "Property Type";
-    }
-
-    // Listen for changes on checkboxes
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener("change", updatePropertyDisplay);
+document.querySelectorAll(".search_property_item_input").forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+        updatePropertyType();
     });
-
-    // Initialize with preselected values
-    updatePropertyDisplay();
 });
 
-      </script>
+function updatePropertyType() {
+    let selectedTypes = [];
+    
+    document.querySelectorAll(".search_property_item_input:checked").forEach((checkedBox) => {
+        let label = checkedBox.nextElementSibling.innerText; // Get label text
+        selectedTypes.push(label);
+    });
+
+    let propertyTypeContainer = document.querySelector(".home_input");
+
+    if (selectedTypes.length > 0) {
+        propertyTypeContainer.innerText = ` ${selectedTypes[0]}:${selectedTypes.length}`;
+    } else {
+        propertyTypeContainer.innerText = "Property Type"; // Default text if nothing selected
+    }
+}
+
+    </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const currentURL = window.location.href; // Get full URL
