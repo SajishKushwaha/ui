@@ -12,6 +12,35 @@
   flex-wrap: nowrap;
   overflow-x: auto;
 }
+.buy_rent_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  /* border-style: solid; */
+  width: 100%;
+  align-items: center;
+}
+.buy_rent {
+  width: 100px;
+  height: 35px;
+  border: none;
+  color: #999;
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.buy {
+  background-color: red;
+  color: white;
+}
+.rent {
+  background-color: red;
+  color: white;
+}
+.cont {
+  display: none;
+}
 .city_name {
   background-color: aqua;
   border-radius: 5px;
