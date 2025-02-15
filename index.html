@@ -232,7 +232,11 @@ body {
   </head>
   <body>
     <div class="container">
-      <div class="search_container">
+        <div class="buy_rent_container">
+            <button class="buy_rent buy" onClick="buy()" id="Buy">Buy</button>
+            <button class="buy_rent" onClick="Rent()" id="Rent">Rent</button>
+        </div>
+      <div class="search_container " id="search_container">
         <div class="location_container">
           <img src="./image/location.png" />
           <div class="search-container">
@@ -377,6 +381,151 @@ body {
             >Search
          
         </div>
+        <div class="search_container cont" id="search_container1">
+            <div class="location_container">
+              <img src="./image/location.png" />
+              <div class="search-container">
+            <div class="container1">
+                <div class="selected-cities" id="selectedCities"></div>
+                <div class="dropdown-container">
+                    <input type="text" class="search-box" placeholder="Search city..." onfocus="showDropdown()" onkeyup="filterCities()">
+                    <ul class="dropdown-menu" id="cityList">
+                        <li data-value="Noida">Noida</li>
+                        <li data-value="Delhi">Delhi</li>
+                        <li data-value="Mumbai">Mumbai</li>
+                        <li data-value="Bangalore">Bangalore</li>
+                        <li data-value="Chennai">Chennai</li>
+                        <li data-value="Kolkata">Kolkata</li>
+                        <li data-value="Pune">Pune</li>
+                        <li data-value="Hyderabad">Hyderabad</li>
+                        <li data-value="Ahmedabad">Ahmedabad</li>
+                    </ul>
+                </div>
+        
+                <!-- Selected Cities -->
+                
+            </div>
+        </div>
+            </div>
+            <hr class="lineShow" />
+            <div class="location_container" onclick="toggleContainer(event)">
+                <i class="fa fa-home" style="color: red; font-size: 15px;"></i>
+    
+              <div class="Property_Type">
+                <!-- <input
+                  type="text"
+                  placeholder="Property Type"
+                  class="home_input"
+                /> -->
+                <span   class="home_input">Property Rent</span>
+                <img src="./image/down-arrow.png" class="arrow"/>
+              </div>
+              <div class="toggle_container" id="toggleContainer">
+                <div onclick="toggleData('dataContainer')">Residental <img src="./image/down-arrow.png"/></div>
+               
+                <div class="data_overflow_container">
+                    <div class="data_overflow" id="dataContainer" >
+                        <div class="search_property_item" >
+                        <input class="search_property_item_input" type="checkbox" value="" name="" id="residential_0" title="Flat"   >
+                        <label class="search_property_item_label" for="residential_0" onclick="Showflat(this,'flatShow')">Flat</label>
+                        </div>
+                        <div class="search_property_item" >
+                        <input class="search_property_item_input" value="" type="checkbox" name="" id="residential_1" title="House/Villa"   >
+                        <label class="search_property_item_label" for="residential_1" onclick="ShowhouseVilla(this,'flatShow')">House/Villa</label>
+                        </div>
+                        <div class="search_property_item" >
+                        <input class="search_property_item_input" value="" type="checkbox" name="" id="residential_2" title="Plot"> 
+                        <label class="search_property_item_label"  for="residential_2" onclick="ShowhouseVilla(this,'flatShow')">Plot</label>
+                        </div>
+                    </div>
+                    <div class="data_overflow1"  id="flatShow">
+                        <div class="search_property_item">
+                        <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_0" title="1 Bhk"> <label class="search_property_item_label" >1
+                        Bhk</label>
+                        </div>
+                        <div class="search_property_item">
+                        <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_1" title="2 Bhk" > <label class="search_property_item_label" >2
+                        Bhk</label>
+                        </div>
+                        <div class="search_property_item">
+                        <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_2" title="3 Bhk" > <label class="search_property_item_label"  for="bhkFlatHouse_2">3
+                        Bhk</label>
+                        </div>
+                        <div class="search_property_item">
+                        <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_3" title="4 Bhk"> <label class="search_property_item_label"  for="bhkFlatHouse_3">4
+                        Bhk</label>
+                        </div>
+                        <div class="search_property_item">
+                        <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_4" title="5 Bhk"> <label class="search_property_item_label"  for="bhkFlatHouse_4">5
+                        Bhk</label>
+                        </div>
+                        <div class="search_property_item">
+                        <input class="search_property_item_input1" value="" type="checkbox" name="bhkFlatHouse" id="bhkFlatHouse_5" title="5+ Bhk"> <label class="search_property_item_label"  for="bhkFlatHouse_5">5+ Bhk</label>
+                        </div>
+                        <input type="hidden" id="bar_bedrooms" name="bar_bedrooms" value=""> <input type="hidden" id="bedroom_name" name="bedroom_name" value="">
+                    </div>
+                </div>
+                <div class="search_property_group prop-type-commercial">
+                    <div class="search_property_title"  onclick="toggleProperty('Commercial')">Commercial <img src="./image/down-arrow.png"/></div>
+                    <div class="search_property_data" id="Commercial">
+                      <div class="data_overflow">
+                        <div class="search_property_item" >
+                          <input class="search_property_item_input " value="" type="checkbox" name="" id="commercial_0" title="Office Space" > 
+                          <label class="search_property_item_label"  for="commercial_0" onclick="ShowhouseVilla(this,'flatShow')">Office Space</label>
+                        </div>
+                        <div class="search_property_item" >
+                          <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_1" title="Shop/Showroom" > 
+                          <label class="search_property_item_label"  for="commercial_1" onclick="ShowhouseVilla(this,'flatShow')">Shop/Showroom</label>
+                        </div>
+                        <div class="search_property_item" >
+                          <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_2" title="Commercial Land"> 
+                          <label class="search_property_item_label"  for="commercial_2" onclick="ShowhouseVilla(this,'flatShow')">Commercial Land</label>
+                        </div>
+                        <div class="search_property_item" >
+                          <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_3" title="Warehouse/Godown"> 
+                          <label class="search_property_item_label"  for="commercial_3" onclick="ShowhouseVilla(this,'flatShow')">Warehouse/Godown</label>
+                        </div>
+                        <div class="search_property_item" >
+                          <input class="search_property_item_input " value="" type="checkbox" name="bar_propertyType_new_buy" id="commercial_4" title="Industrial Building">
+                          <label class="search_property_item_label"  for="commercial_4" onclick="ShowhouseVilla(this,'flatShow')">Industrial Building</label>
+                        </div>
+                        <div class="search_property_item" >
+                          <input class="search_property_item_input " value="10014" type="checkbox" name="bar_propertyType_new_buy" id="commercial_5" title="Industrial Shed"> 
+                          <label class="search_property_item_label"  for="commercial_5" onclick="ShowhouseVilla(this,'flatShow')">Industrial Shed</label>
+                        </div>
+                      </div>
+                      <div class="clearAll"></div>
+                    </div>
+                </div>
+                  
+              </div>
+                
+             </div>
+               
+            <hr class="lineShow" />
+            <div class="location_container">
+            <div class="red-bg">
+                <img src="./image/rupee-indian.png" class="white-icon">
+              </div> 
+              <div class="budget-container">
+                <div class="budget-title" onclick="toggleBudgetDropdown()">
+                  Select Budget 
+                  <img src="./image/down-arrow.png" class="arrow1" id="dropdownArrow"/>
+              </div>
+                <div class="budget-dropdown" id="budgetDropdown">
+                    <div class="budget-list" id="minBudgetList"></div>
+                    <div class="budget-list" id="maxBudgetList"></div>
+                </div>
+            </div>
+            </div>
+          
+      
+      
+              <button class="search_button">
+                <i class="fa fa-search" style="color: white; font-size: 17px; margin-right: 10px;"></i
+                >Search
+             
+        </div>
       </div>
     </div>
  
@@ -428,6 +577,26 @@ body {
             let city = cityList[i].textContent.toLowerCase();
             cityList[i].style.display = city.includes(filter) ? "" : "none";
         }
+    }
+    function buy(){
+        const buy = document.getElementById("Buy");
+        const Rent = document.getElementById("Rent");
+        buy.classList.add("buy");
+        Rent.classList.remove("rent");
+        const search_container = document.getElementById("search_container");
+        const search_container1 = document.getElementById("search_container1");
+        search_container.classList.remove("cont");
+        search_container1.classList.add("cont");
+    }
+    function Rent(){
+        const buy = document.getElementById("Buy");
+        const Rent = document.getElementById("Rent");
+        buy.classList.remove("buy");
+        Rent.classList.add("rent");
+        const search_container = document.getElementById("search_container");
+        const search_container1 = document.getElementById("search_container1");
+        search_container.classList.add("cont");
+        search_container1.classList.remove("cont");
     }
 </script>
 <script>
